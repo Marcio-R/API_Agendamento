@@ -49,5 +49,17 @@ namespace WebApplicationAPI.Controllers
             _context.SaveChangesAsync();
             return Ok(contato);
         }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteContato(int id)
+        {
+            var contato = _context.Contato.Find(id);
+            if(contato == null)
+            {
+                return NotFound();
+            }
+            _context.Contato.Remove(contato);
+            _context.SaveChanges();
+            return NoContent();
+        }
     }
 }

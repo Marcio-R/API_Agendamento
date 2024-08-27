@@ -28,5 +28,26 @@ namespace WebApplicationAPI.Controllers
             _context.SaveChanges();
             return Ok(contato);
         }
+        [HttpGet("{id}")]
+        public IActionResult ObterPorId(int id)
+        {
+            var contato = _context.Contato.Find(id);
+            if (contato == null)
+            {
+                return NotFound();
+            }
+            return Ok(contato);
+        }
+        [HttpPut("{id}")]
+        public IActionResult AtualizarContato(int id, Contato contato)
+        {
+            if(id != contato.Id)
+            {
+                return BadRequest();
+            }
+            _context.Update(contato);
+            _context.SaveChangesAsync();
+            return Ok(contato);
+        }
     }
 }
